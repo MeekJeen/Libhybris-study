@@ -3,13 +3,14 @@
 #include <string.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <dlfcn.h>
 
 int main()
 {
   void *handle;
   void (*bar)(void);
   void (*foo)(void);
-  handle = hybris_dlopen("libfoo.so",0x02); //RTLD_LAZY = 0x00001; RTLD_NOW = 0x00002
+  handle = hybris_dlopen("libfoo.so",RTLD_NOW); //RTLD_LAZY = 0x00001; RTLD_NOW = 0x00002
   printf("xxx----------------------------->%s(), line = %d\n",__FUNCTION__,__LINE__);
   if(NULL == handle){
     printf("%s(), line = %d, hybris_dlopen failed: %s\n",__FUNCTION__,__LINE__,strerror(errno));
